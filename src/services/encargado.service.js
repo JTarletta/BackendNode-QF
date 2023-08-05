@@ -1,4 +1,4 @@
-import { Encargado } from "../DAO/models/encargado.model";
+import { Encargado } from "../DAO/models/encargado.model.js";
 
 class EncargadoService {
     async getAll(){

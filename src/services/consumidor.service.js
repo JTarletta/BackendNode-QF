@@ -1,4 +1,4 @@
-import { Consumidor } from "../DAO/models/consumidor.model";
+import { Consumidor } from "../DAO/models/consumidor.model.js";
 
 class ConsumidorService {
     async getAll(){
