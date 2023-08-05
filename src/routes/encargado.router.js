@@ -1,34 +1,14 @@
 import express from 'express';
-export const RouterEncargadoPuesto = express.Router();
-import { EncargadosPuestos } from '../DAO/models/encargadoPuesto.model.js';
+export const RouterEncargado= express.Router();
+import { EncargadosPuestos } from '../DAO/models/encargado.model.js';
 import { Consumidor } from '../DAO/models/consumidor.model.js';
+import { encargadoController } from '../controllers/encargado.controller.js';
 
-RouterEncargadoPuesto.get('/', async (req, res) => {
-  try {
-    const encargados = await EncargadosPuestos.findAll();
-    if (encargados.length > 0) {
-      return res.status(200).json({
-        status: 'sucess',
-        msg: 'Found all users',
-        data: encargados,
-      });
-    } else {
-      return res.status(404).json({
-        status: 'Error',
-        msg: 'Users not found',
-        data: {},
-      });
-    }
-  } catch (e) {
-    return res.status(500).json({
-      status: 'error',
-      msg: 'something went wrong :(',
-      data: {},
-    });
-  }
-});
 
-RouterEncargadoPuesto.get('/:id', async (req, res) => {
+RouterEncargado.get('/', encargadoController.getAllcontroller)
+
+
+RouterEncargado.get('/:id', async (req, res) => {
   try {
     const encargadoId = req.params.id;
     const encargado = await EncargadosPuestos.findByPk(encargadoId);
@@ -55,7 +35,7 @@ RouterEncargadoPuesto.get('/:id', async (req, res) => {
   }
 });
 
-/*RouterEncargadoPuesto.get('/user/:id', async (req, res) => {
+/*RouterEncargado.get('/user/:id', async (req, res) => {
       try {
         const usuarioId = req.params.id;
         const encargado = await EncargadosPuestos.findOne({
@@ -90,7 +70,7 @@ RouterEncargadoPuesto.get('/:id', async (req, res) => {
       }
     });*/
 
-RouterEncargadoPuesto.put('/:id', async (req, res) => {
+RouterEncargado.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { razonSocial, cuit } = req.body;
@@ -114,7 +94,7 @@ RouterEncargadoPuesto.put('/:id', async (req, res) => {
   }
 });
 
-RouterEncargadoPuesto.post('/', async (req, res) => {
+RouterEncargado.post('/', async (req, res) => {
   try {
     const { encargado } = req.body;
     console.log(encargado);
@@ -155,7 +135,7 @@ RouterEncargadoPuesto.post('/', async (req, res) => {
   }
 });
 
-RouterEncargadoPuesto.delete('/:id', async (req, res) => {
+RouterEncargado.delete('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const encargado = await EncargadosPuestos.findByPk(id);
